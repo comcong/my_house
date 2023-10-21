@@ -22,7 +22,8 @@ from backend import apt_info
 
 
 sidebar = st.sidebar.container()
-city = sidebar.text_input('지역을 입력하세요', '서구 원당동')
+# st.session_state.search_local = '서구 원당동'
+city = sidebar.text_input('지역을 입력하세요', '서구 원당동', key='search_local')
 
 if 'call_apts' not in st.session_state:
     st.session_state.df = pd.DataFrame(columns=['검색지역', '단지명', '세대수', '사용승인일', '매매', '전세', '월세', '단기'])
@@ -48,7 +49,8 @@ if 'selected_apt' in st.session_state and sidebar.button('아파트 정보', key
     maemul_cnt = st.session_state.df['총잔량'][st.session_state.df['단지명'] == st.session_state.selected_apt].values[0]
     if maemul_cnt > 0:  # 매물 총잔량이 1 건 이상인 경우에만 매물 불러오기 함수 실행
         maemul_df = apt_info.apt_info(hscpNo, maemul_cnt)
+        st.session_state.maemul_df = maemul_df
     else:
         st.write('매물이 없습니다.')
+        st.session_state.maemul_df = pd.DataFrame()
 
-    st.session_state.maemul_df = maemul_df
