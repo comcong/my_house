@@ -6,6 +6,8 @@ import streamlit as st
 
 def apt_info(hscpNo, maemul_cnt):
     building_type = 'A1:B1:B2'
+    if maemul_cnt == 0:    # 매물 총잔량이 없으면 함수 종료
+        return
     page_cnt = math.ceil(maemul_cnt/20)       # 소수점 올림
     hdr = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
     df_maemul_list = pd.DataFrame()
@@ -24,9 +26,6 @@ def apt_info(hscpNo, maemul_cnt):
             error = True
     if error:
         st.markdown(res, unsafe_allow_html=True)
-
-
-
 
     def convert_list_to_string(data):  # 리스트, 딕셔너리 형태를 문자열로 변환해 주는 함수
         return ', '.join(map(str, data))

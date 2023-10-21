@@ -40,12 +40,14 @@ sidebar.selectbox(
     placeholder="아파트를 선택하세요.",
     key='selected_apt'
 )
-st.dataframe(st.session_state.df, hide_index=True)                                        # 아파트들 데이터프레임 출력
+st.dataframe(st.session_state.df, hide_index=True)              # 아파트들 데이터프레임 출력
 
 if 'selected_apt' in st.session_state and sidebar.button('아파트 정보', key='search_apt_info'):
     hscpNo = st.session_state.df['단지ID'][st.session_state.df['단지명'] == st.session_state.selected_apt].values[0]
     maemul_cnt = st.session_state.df['총잔량'][st.session_state.df['단지명'] == st.session_state.selected_apt].values[0]
-    st.dataframe(apt_info.apt_info(hscpNo, maemul_cnt), hide_index=True)   # 아파트 정보 출력
-
+    if maemul_cnt > 0:  # 매물 총잔량이 1 건 이상인 경우에만 매물 불러오기 함수 실행
+        st.dataframe(apt_info.apt_info(hscpNo, maemul_cnt), hide_index=True)   # 아파트 정보 출력
+    else:
+        st.write('매물이 없습니다.')
 
 
