@@ -14,8 +14,8 @@ def apt_info(hscpNo, maemul_cnt):
     res = ''
     for page in range(1, page_cnt+1):
         URL = f'https://m.land.naver.com/complex/getComplexArticleList?hscpNo={hscpNo}&tradTpCd={building_type}&order=point_&showR0=N&page={page}'
-        APIKEY = '897ae59b782a2342e2e34fa6dd6aad91'
-        ScraperAPI = f"http://api.scraperapi.com/?api_key={APIKEY}&url={URL}"
+        APIKEY = '897ae59b782a2342e2e34fa6dd6aad91'  # ip 우회   https://dashboard.scraperapi.com/
+        ScraperAPI = f"http://api.scraperapi.com/?api_key={APIKEY}&url={URL}"  # ip 우회  https://dashboard.scraperapi.com/
         res = requests.get(ScraperAPI, headers=hdr)
         try:
             maemul_list = res.json()['result']['list']
