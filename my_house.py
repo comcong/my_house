@@ -5,6 +5,7 @@ import pandas as pd
 import streamlit as st
 from backend import apts
 from backend import apt_info
+# import foo
 
 # st.set_page_config(
 #     page_title="Ex-stream-ly Cool App",
@@ -46,8 +47,8 @@ if 'selected_apt' in st.session_state and sidebar.button('아파트 정보', key
     hscpNo = st.session_state.df['단지ID'][st.session_state.df['단지명'] == st.session_state.selected_apt].values[0]
     maemul_cnt = st.session_state.df['총잔량'][st.session_state.df['단지명'] == st.session_state.selected_apt].values[0]
     if maemul_cnt > 0:  # 매물 총잔량이 1 건 이상인 경우에만 매물 불러오기 함수 실행
-        st.dataframe(apt_info.apt_info(hscpNo, maemul_cnt), hide_index=True)   # 아파트 정보 출력
+        maemul_df = apt_info.apt_info(hscpNo, maemul_cnt)
     else:
         st.write('매물이 없습니다.')
 
-
+    st.session_state.maemul_df = maemul_df
