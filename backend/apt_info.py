@@ -1,5 +1,5 @@
 import requests
-import json
+# import json
 import pandas as pd
 import math
 import streamlit as st
@@ -16,11 +16,14 @@ def apt_info(hscpNo, maemul_cnt):
     for page in range(1, page_cnt+1):
         url = f'https://m.land.naver.com/complex/getComplexArticleList?hscpNo={hscpNo}&tradTpCd={building_type}&order=point_&showR0=N&page={page}'
         res = requests.get(url, headers=hdr)
-        res.raise_for_status()
-        res.encoding = 'UTF-8'
-        res = res.text
+        # res.raise_for_status()
+        # res.encoding = 'UTF-8'
+
+        # res = res.text
         try:
-            maemul_list = json.loads(res)['result']['list']
+            # maemul_list = json.loads(res)['result']['list']
+            maemul_list = res.json()['result']['list']
+
             df_maemul_list = df_maemul_list._append(maemul_list)
         except:
             error = True
