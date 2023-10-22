@@ -25,6 +25,10 @@ if sidebar.button('검색', key='search_apts'):
     st.session_state.df = called_apts[0]                          # 아파트들 데이터프레임
     st.session_state.select_box_apt_list = called_apts[1]         # 아파트들 튜플 (a,b,c,d, ....)
 
+    import socket
+    print(socket.gethostbyname(socket.gethostname()))
+    st.write(socket.gethostbyname(socket.gethostname()))
+
 sidebar.selectbox(       # 드롭 박스
     "아파트를 선택하세요.",
     st.session_state.select_box_apt_list,
