@@ -3,7 +3,9 @@ import re
 import math
 import pandas as pd
 from datetime import datetime as dt
+import streamlit as st
 
+@st.cache_data
 def apts(city):
     hdr = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
     url = 'https://m.land.naver.com/search/result/'
@@ -84,8 +86,8 @@ def apts(city):
 
 
 
-    df = df[['검색지역', '단지명', '단지ID', '세대수', '사용승인일',
-             '매매', '전세', '월세', '단기', '총잔량']]
+    # df = df[['검색지역', '단지명', '단지ID', '세대수', '사용승인일',
+    #          '매매', '전세', '월세', '단기', '총잔량']]
     apts = tuple(df['단지명'])
 
     return df, apts

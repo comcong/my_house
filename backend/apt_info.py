@@ -3,6 +3,7 @@ import pandas as pd
 import math
 import streamlit as st
 
+@st.cache_data
 def apt_info(hscpNo, maemul_cnt):
     building_type = 'A1:B1:B2'
     if maemul_cnt == 0:    # 매물 총잔량이 없으면 함수 종료

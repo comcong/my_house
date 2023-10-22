@@ -32,7 +32,10 @@ sidebar.selectbox(       # 드롭 박스
     placeholder="아파트를 선택하세요.",
     key='selected_apt'
 )
-st.dataframe(st.session_state.df, hide_index=True)              # 아파트들 데이터프레임 출력
+
+st.dataframe(st.session_state.df, hide_index=True,
+             column_order=['검색지역', '단지명', '세대수', '사용승인일', '매매', '전세', '월세', '단기', '총잔량', ],
+             )
 
 if 'selected_apt' in st.session_state and sidebar.button('아파트 정보', key='search_apt_info'):
     hscpNo = st.session_state.df['단지ID'][st.session_state.df['단지명'] == st.session_state.selected_apt].values[0]
