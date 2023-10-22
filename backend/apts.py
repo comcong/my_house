@@ -2,6 +2,7 @@ import requests
 import re
 import math
 import pandas as pd
+from datetime import datetime as dt
 
 def apts(city):
     hdr = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'}
@@ -64,11 +65,16 @@ def apts(city):
                                               'leasePrcMax':'최대전세가', 'strmRentCnt':'단기',
                                               })
 
+
     # 데이터 전처리
-    df['최소매매가'] = df['최소매매가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
-    df['최대매매가'] = df['최대매매가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
-    df['최대전세가'] = df['최대전세가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
-    df['최소전세가'] = df['최소전세가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
+    if '최소매매가' in df.columns:
+        df['최소매매가'] = df['최소매매가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
+    if '최대매매가' in df.columns:
+        df['최대매매가'] = df['최대매매가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
+    if '최대전세가' in df.columns:
+        df['최대전세가'] = df['최대전세가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
+    if '최소전세가' in df.columns:
+        df['최소전세가'] = df['최소전세가'].str.replace('<em class=\'txt_unit\'>', '').str.replace('</em>', '')
 
     #  컬럼 순서 지정
     # df = df[['검색지역', '단지명', '단지ID', '건물타입', '빌딩타입', '동수', '세대수', 'genHsehCnt', '사용승인일',
