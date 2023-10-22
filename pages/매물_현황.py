@@ -18,3 +18,5 @@ if 'maemul_df' in st.session_state:
         file_name='large_df.csv',
         # mime='text/csv',
     )
+
+    st.write('신명진')
