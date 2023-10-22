@@ -32,6 +32,8 @@ sidebar.selectbox(       # 드롭 박스
     placeholder="아파트를 선택하세요.",
     key='selected_apt'
 )
+if st.session_state.selected_apt != None:
+    st.session_state.selecting_apt = st.session_state.selected_apt
 
 st.dataframe(st.session_state.df, hide_index=True,
              column_order=['검색지역', '단지명', '세대수', '사용승인일', '매매', '전세', '월세', '단기', '총잔량', ],
