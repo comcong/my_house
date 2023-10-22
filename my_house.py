@@ -5,37 +5,27 @@ import pandas as pd
 import streamlit as st
 from backend import apts
 from backend import apt_info
-# import foo
-
-# st.set_page_config(
-#     page_title="Ex-stream-ly Cool App",
-#     page_icon="🧊",
-#     layout="wide",
-#     initial_sidebar_state="expanded",
-#     menu_items={
-#         'Get Help': 'https://www.extremelycoolapp.com/help',
-#         'Report a bug': "https://www.extremelycoolapp.com/bug",
-#         'About': "# This is a header. This is an *extremely* cool app!"
-#     }
-# )
-
-
 
 sidebar = st.sidebar.container()
-# st.session_state.search_local = '서구 원당동'
-city = sidebar.text_input('지역을 입력하세요', '서구 원당동', key='search_local')
+
+if 'user_input' not in st.session_state:
+    city = sidebar.text_input('지역을 입력하세요', '서구 원당동', key='search_local')
+else:
+    city = sidebar.text_input('지역을 입력하세요', st.session_state.user_input, key='search_local')
+st.session_state.user_input = st.session_state.search_local
 
 if 'call_apts' not in st.session_state:
-    st.session_state.df = pd.DataFrame(columns=['검색지역', '단지명', '세대수', '사용승인일', '매매', '전세', '월세', '단기'])
-    st.session_state.select_box_apt_list = ''
+    st.session_state.df = pd.DataFrame(columns=['검색지역', '단지명', '세대수', '사용승인일', '매매', '전세', '월세', '단기'])  # 데이터프레임
+    st.session_state.select_box_apt_list = ''   # 드롭 박스
     st.session_state.call_apts = True
 
 if sidebar.button('검색', key='search_apts'):
+    # city = st.session_state.search_local
     called_apts = apts.apts(city)  # 지역 안의 아파트들의 정보를 담는다.
     st.session_state.df = called_apts[0]                          # 아파트들 데이터프레임
-    st.session_state.select_box_apt_list = called_apts[1]         # 아파트들 리스트
+    st.session_state.select_box_apt_list = called_apts[1]         # 아파트들 튜플 (a,b,c,d, ....)
 
-sidebar.selectbox(
+sidebar.selectbox(       # 드롭 박스
     "아파트를 선택하세요.",
     st.session_state.select_box_apt_list,
     index=None,
