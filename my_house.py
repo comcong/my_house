@@ -27,7 +27,7 @@ if sidebar.button('검색', key='search_apts'):
 
     import socket
     print(socket.gethostbyname(socket.gethostname()))
-    st.write(socket.gethostbyname(socket.gethostname()))
+    st.title(socket.gethostbyname(socket.gethostname()))
 
 sidebar.selectbox(       # 드롭 박스
     "아파트를 선택하세요.",
